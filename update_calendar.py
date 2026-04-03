@@ -5,10 +5,10 @@ from datetime import datetime, timedelta
 from icalendar import Calendar, Event
 
 # --- [설정] ---
-NX, NY = 60, 127
-LOCATION_NAME = "봉화산로 193"
-REG_ID_TEMP = '11B10101'
-REG_ID_LAND = '11B00000'
+NX, NY = 87, 90
+LOCATION_NAME = "그린뱅크꽃집"
+REG_ID_TEMP = '11H10000'
+REG_ID_LAND = '11H10701'
 API_KEY = os.environ.get('KMA_API_KEY')
 
 def get_weather_info(sky, pty):
