@@ -1,10 +1,12 @@
 name: Update Weather ICS
 
+# 1. 전역 환경 변수 (모든 단계에 적용)
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # Node.js 24 경고 해결
+
 on:
   schedule:
+    # 기상청 발표 15분 뒤 실행 (KST 02:15, 05:15 ... 23:15)
     - cron: '15 17,20,23,2,5,8,11,14 * * *'
   push:
     paths:
@@ -13,14 +15,10 @@ on:
       - main
   workflow_dispatch:
 
-# 🌟 Node.js 24 강제 사용 설정 (경고 해결 핵심)
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 permissions:
   contents: write
-  pages: write      # 페이지 배포 권한
-  id-token: write   # 배포 인증 권한
+  pages: write
+  id-token: write
 
 jobs:
   build:
@@ -38,6 +36,7 @@ jobs:
         run: pip install requests pytz icalendar
 
       - name: Run update script
+        # 2. 지역 환경 변수 (해당 단계의 파이썬 실행에만 적용)
         env:
           KMA_API_KEY: ${{ secrets.KMA_API_KEY }}
           TZ: Asia/Seoul
